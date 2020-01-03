@@ -155,25 +155,27 @@
 	 * @param {number} id The ID of the item to remove from the DOM and
 	 * storage
 	 */
-	Controller.prototype.removeItem = function (id) {
-		var self = this;
-		var items;
-		self.model.read(function(data) {
-			items = data;
-		});
 
-		items.forEach(function(item) {
-			if (item.id === id) {
-				console.log("Element with ID: " + id + " has been removed.");
-			}
-		});
+	Controller.prototype.removeItem = function(id) {
+	    var self = this;
+	    var items;
+	    self.model.read(function(data) {
+	      items = data;
+	    });
 
-		self.model.remove(id, function () {
-			self.view.render('removeItem', id);
-		});
+	    // this stops as soon as element with ID is found
+	    var found = items.find(function(item) {
+	      return item.id === id;
+	    });
 
-		self._filter();
-	};
+	    if (found) {
+      	self.model.remove(id, function() {
+        self.view.render("removeItem", id);
+      });
+
+	      self._filter();
+	    }
+	  };
 
 	/**
 	 * Will remove all completed items from the DOM and storage.

@@ -23,3 +23,4 @@
 	$on(window, 'load', setView);
 	$on(window, 'hashchange', setView);
 })();
+

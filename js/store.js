@@ -80,8 +80,9 @@
 
 		callback = callback || function () {};
 
-		// Generate an ID
-	    var newId = ""; 
+
+		let newId = (new Date().getTime()); 
+		console.log(newId);
 	    var charset = "0123456789";
 
         for (var i = 0; i < 6; i++) {
