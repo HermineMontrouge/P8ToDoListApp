@@ -80,7 +80,7 @@
 
 		callback = callback || function () {};
 
-
+		// generate unique ID with milliseconds since Jan 1, 1970
 		let newId = (new Date().getTime()); 
 		console.log(newId);
 	    var charset = "0123456789";
@@ -106,7 +106,7 @@
 
     		// Assign an ID
 			updateData.id = parseInt(newId);
-    
+    	console.log(updateData.id);
 
 			todos.push(updateData);
 			localStorage[this._dbName] = JSON.stringify(data);
