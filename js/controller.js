@@ -9,7 +9,7 @@
 	 * @param {object} view The view instance
 	 */
 	function Controller(model, view) {
-		var self = this;
+		let self = this;
 		self.model = model;
 		self.view = view;
 
@@ -52,8 +52,8 @@
 	 * @param {string} '' | 'active' | 'completed'
 	 */
 	Controller.prototype.setView = function (locationHash) {
-		var route = locationHash.split('/')[1];
-		var page = route || '';
+		let route = locationHash.split('/')[1];
+		let page = route || '';
 		this._updateFilterState(page);
 	};
 
@@ -62,7 +62,7 @@
 	 * todo-list
 	 */
 	Controller.prototype.showAll = function () {
-		var self = this;
+		let self = this;
 		self.model.read(function (data) {
 			self.view.render('showEntries', data);
 		});
@@ -72,7 +72,7 @@
 	 * Renders all active tasks
 	 */
 	Controller.prototype.showActive = function () {
-		var self = this;
+		let self = this;
 		self.model.read({ completed: false }, function (data) {
 			self.view.render('showEntries', data);
 		});
@@ -82,7 +82,7 @@
 	 * Renders all completed tasks
 	 */
 	Controller.prototype.showCompleted = function () {
-		var self = this;
+		let self = this;
 		self.model.read({ completed: true }, function (data) {
 			self.view.render('showEntries', data);
 		});
@@ -93,7 +93,7 @@
 	 * object and it'll handle the DOM insertion and saving of the new item.
 	 */
 	Controller.prototype.addItem = function (title) {
-		var self = this;
+		let self = this;
 
 		if (title.trim() === '') {
 			return;
@@ -109,7 +109,7 @@
 	 * Triggers the item editing mode.
 	 */
 	Controller.prototype.editItem = function (id) {
-		var self = this;
+		let self = this;
 		self.model.read(id, function (data) {
 			self.view.render('editItem', {id: id, title: data[0].title});
 		});
@@ -119,7 +119,7 @@
 	 * Finishes the item editing mode successfully.
 	 */
 	Controller.prototype.editItemSave = function (id, title) {
-		var self = this;
+		let self = this;
 
 		while (title[0] === " ") {
 			title = title.slice(1);
@@ -142,7 +142,7 @@
 	 * Cancels the item editing mode.
 	 */
 	Controller.prototype.editItemCancel = function (id) {
-		var self = this;
+		let self = this;
 		self.model.read(id, function (data) {
 			self.view.render('editItemDone', {id: id, title: data[0].title});
 		});
@@ -156,8 +156,8 @@
 	 * storage
 	 */
 	Controller.prototype.removeItem = function (id) {
-		var self = this;
-		var items;
+		let self = this;
+		let items;
 		self.model.read(function(data) {
 			items = data;
 		});
@@ -173,7 +173,7 @@
 	 * Will remove all completed items from the DOM and storage.
 	 */
 	Controller.prototype.removeCompletedItems = function () {
-		var self = this;
+		let self = this;
 		self.model.read({ completed: true }, function (data) {
 			data.forEach(function (item) {
 				self.removeItem(item.id);
@@ -193,7 +193,7 @@
 	 * @param {boolean|undefined} silent Prevent re-filtering the todo items
 	 */
 	Controller.prototype.toggleComplete = function (id, completed, silent) {
-		var self = this;
+		let self = this;
 		self.model.update(id, { completed: completed }, function () {
 			self.view.render('elementComplete', {
 				id: id,
@@ -211,7 +211,7 @@
 	 * Just pass in the event object.
 	 */
 	Controller.prototype.toggleAll = function (completed) {
-		var self = this;
+		let self = this;
 		self.model.read({ completed: !completed }, function (data) {
 			data.forEach(function (item) {
 				self.toggleComplete(item.id, completed, true);
@@ -226,7 +226,7 @@
 	 * number of todos.
 	 */
 	Controller.prototype._updateCount = function () {
-		var self = this;
+		let self = this;
 		self.model.getCount(function (todos) {
 			self.view.render('updateElementCount', todos.active);
 			self.view.render('clearCompletedButton', {
@@ -244,7 +244,7 @@
 	 * @param {boolean|undefined} force  forces a re-painting of todo items.
 	 */
 	Controller.prototype._filter = function (force) {
-		var activeRoute = this._activeRoute.charAt(0).toUpperCase() + this._activeRoute.substr(1);
+		let activeRoute = this._activeRoute.charAt(0).toUpperCase() + this._activeRoute.substr(1);
 
 		// Update the elements on the page, which change with each completed todo
 		this._updateCount();
