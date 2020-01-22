@@ -2,7 +2,7 @@
 (function (window) {
 	'use strict';
 
-	var htmlEscapes = {
+	let htmlEscapes = {
 		'&': '&amp;',
 		'<': '&lt;',
 		'>': '&gt;',
@@ -11,14 +11,14 @@
 		'`': '&#x60;'
 	};
 
-	var escapeHtmlChar = function (chr) {
+	let escapeHtmlChar = function (chr) {
 		return htmlEscapes[chr];
 	};
 
-	var reUnescapedHtml = /[&<>"'`]/g;
-	var reHasUnescapedHtml = new RegExp(reUnescapedHtml.source);
+	let reUnescapedHtml = /[&<>"'`]/g;
+	let reHasUnescapedHtml = new RegExp(reUnescapedHtml.source);
 
-	var escape = function (string) {
+	let escape = function (string) {
 		return (string && reHasUnescapedHtml.test(string))
 			? string.replace(reUnescapedHtml, escapeHtmlChar)
 			: string;
@@ -58,13 +58,13 @@
 	 * });
 	 */
 	Template.prototype.show = function (data) {
-		var i, l;
-		var view = '';
+		let i, l;
+		let view = '';
 
 		for (i = 0, l = data.length; i < l; i++) {
-			var template = this.defaultTemplate;
-			var completed = '';
-			var checked = '';
+			let template = this.defaultTemplate;
+			let completed = '';
+			let checked = '';
 
 			if (data[i].completed) {
 				completed = 'completed';
@@ -89,7 +89,7 @@
 	 * @returns {string} String containing the count
 	 */
 	Template.prototype.itemCounter = function (activeTodos) {
-		var plural = activeTodos <= 1 ? '' : 's';
+		let plural = activeTodos <= 1 ? '' : 's';
 
 		return '<strong>' + activeTodos + '</strong> item' + plural + ' left';
 	};
